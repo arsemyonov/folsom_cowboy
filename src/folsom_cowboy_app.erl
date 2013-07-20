@@ -39,7 +39,7 @@ start(_Type, _Args) ->
       [{port, env(port)}], 
 		  [
         {env, [{dispatch, Dispatch}]},
-        {middlewares, [cowboy_router, cld_cors_middleware, cowboy_handler]}
+        {middlewares, [cowboy_router, folsom_cowboy_cors_middleware, cowboy_handler]}
       ]),
     folsom_cowboy_sup:start_link().
 
