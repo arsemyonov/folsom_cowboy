@@ -36,8 +36,11 @@ start(_Type, _Args) ->
     Dispatch = cowboy_router:compile(env(dispatch)),
 
     {ok, _Pid} = cowboy:start_http(folsom_cowboy_listener, env(num_acceptors),
-                      [{port, env(port)}], 
-		      [{env, [{dispatch, Dispatch}] } ]),
+      [{port, env(port)}], 
+		  [
+        {env, [{dispatch, Dispatch}]},
+        {middlewares, [cowboy_router, cld_cors_middleware, cowboy_handler]}
+      ]),
     folsom_cowboy_sup:start_link().
 
 stop(_State) ->
